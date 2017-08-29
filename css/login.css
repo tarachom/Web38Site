@@ -1,0 +1,32 @@
+body {
+    background-image: url(/images/bg.jpg);
+}
+.content {
+    margin: auto;
+    padding: 2em;
+    width: 550px;
+    border: 1px solid #cdd6d0;
+    margin-top: 20em;
+    background-color: #e6efe9;
+    font-family: Verdana;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12) !important;
+}
+table.form {
+    
+}
+table.form td {
+    border-bottom: #f1f1f1 1px solid;
+    padding: 5px;
+}
+
+    table.form td.clear {
+        border: none 0px #ffffff;
+    }
+
+    table.form td.help {
+        font-size: 0.8em;
+    }
+
+.textboxfield2 {
+    font-size: 1.5em;
+}
