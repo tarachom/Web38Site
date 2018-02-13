@@ -4,26 +4,42 @@
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //ReadAcauntInfo(Ключ, ІПАдреса)
+        //LogOff(Ключ, ІПАдреса)
         ProtocolWeb38 Web38 = new ProtocolWeb38("LogOff",
             new string[]
             {
-                Session["USER_GUID"].ToString(),
+                (Session["USER_GUID"] != null ? Session["USER_GUID"].ToString() : ""),
                 Request.UserHostAddress
             });
 
         Web38.Send();
 
-        if (Web38.ReceivePacket.StateCode == "200")
+        switch (Web38.Packet.StateCode)
         {
-            //Код 200 значить що все ОК
-            Session.Abandon();
-            Response.Redirect("login.aspx");
-        }
-        else
-        {
-            Session.Abandon();
-            Response.Write( "Error: " + Web38.ReceivePacket.StateCode);
+            case "200":
+                {
+                    //ОК
+                    Session.Abandon();
+                    Response.Redirect("login.aspx");
+
+                    break;
+                }
+            case "500":
+                {
+                    //1C Error
+                    Session.Abandon();
+                    Response.Write("Error: " + Web38.Packet.StateCode);
+
+                    break;
+                }
+            default:
+                {
+                    //Connection error
+                    Session.Abandon();
+                    Response.Write("Error: " + Web38.Packet.StateCode);
+
+                    break;
+                }
         }
     }
 
